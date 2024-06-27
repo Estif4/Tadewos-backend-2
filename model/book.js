@@ -1,6 +1,6 @@
-const { FORCE } = require('sequelize/lib/index-hints');
-const sequelize = require('../config/db.config'); // Import the Sequelize instance
-const { DataTypes } = require('sequelize'); // Import DataTypes separately
+
+const sequelize = require('../config/db.config'); 
+const { DataTypes } = require('sequelize'); 
 
 const Book = sequelize.define('Books', {
   id: {

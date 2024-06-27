@@ -30,6 +30,25 @@ const createBook = async(req, res) => {
             res.status(500).json({ error: 'Unable to create book' });
         });
 };
+const getOneBook = (req, res) => {
+    const id = req.query.id;
+    
+
+    model.findOne({ where: { id: id } })
+        .then((data) => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({ message: "Book not found" });
+            }
+        })
+        .catch((error) => {
+            console.error("Error occurred:", error);
+            res.status(500).send({ message: "Error happened" });
+        });
+};
+
+
 
 const getBook = (req, res) => {
     model.findAll()
@@ -45,9 +64,10 @@ const getBook = (req, res) => {
 const updateBook=(req,res)=>{
   const id = req.params.id;
   
-  model.update({}, {where: {id:id}})
-  .then((data)=>{
-    res.send(data)
+  model.update(req.body, {where: {id:id}})
+  .then((updateData)=>{
+    res.send(updateData)
+    console.log(updateData)
   })
   .catch((err)=>{
     console.log(err)
@@ -76,5 +96,6 @@ module.exports = {
     createBook,
     getBook,
     updateBook,
-    deleteBook
+    deleteBook,
+    getOneBook
 };
